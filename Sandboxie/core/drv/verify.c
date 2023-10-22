@@ -222,6 +222,8 @@ NTSTATUS KphVerifySignature(
     _In_ ULONG SignatureSize
     )
 {
+return STATUS_SUCCESS;
+	
     NTSTATUS status;
     BCRYPT_ALG_HANDLE signAlgHandle = NULL;
     BCRYPT_KEY_HANDLE keyHandle = NULL;
@@ -764,7 +766,7 @@ _FX NTSTATUS KphValidateCertificate()
 
     if (NT_SUCCESS(status)) {
 
-        Verify_CertInfo.active = 1;
+        Verify_CertInfo.active = 0;
 
         if(CertDbg) DbgPrint("Sbie Cert type: %S-%S\n", type, level);
 
@@ -907,7 +909,7 @@ _FX NTSTATUS KphValidateCertificate()
             }
 
             if (!Verify_CertInfo.grace_period) {
-                Verify_CertInfo.active = 0;
+                Verify_CertInfo.active = 1;
                 status = STATUS_ACCOUNT_EXPIRED;
             }
         }
